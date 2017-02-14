@@ -18,9 +18,11 @@ def mainMeet():
     showMonth = "April"
     isPresent = False;
     shows = {'date': 'April 6-9', 'location': 'The Charlotte Motor Speedway', 'address': '5555 Concord Pkwy S, Concord, NC 28027', 'name': 'Charlotte AutoFair', 'description': 'These events provide collector car Flea Market Vendor spaces to buy and sell restoration parts and supplies for almost any vehicle ever produced - in addition to Car Corral vehicle spaces on the track oval for buying and selling collector vehicles of all descriptions! The collector car Flea Market includes everything automotive, including memorabilia, vintage signs, tires, wheels, automotive toys, restoration supplies, tools, and classic cars for sale!'}
-    
-    
     return render_template('meet.html', showMonth=showMonth, show=shows, isPres=isPresent)
+
+@app.route('/form')
+def mainForm():
+    return render_template('form.html')
     
 @app.route('/vids')
 def mainVids():
@@ -32,4 +34,4 @@ def mainVids():
     return render_template('vids.html', vids=videos)
 # start the server
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=80, debug=True)
+    app.run('0.0.0.0', port=8080, debug=True)
