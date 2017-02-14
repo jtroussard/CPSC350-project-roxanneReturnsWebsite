@@ -23,11 +23,36 @@
       </div>
       <nav>
         <ul class="sf-menu" id="nav">
-          <li class="selected"><a href="./">Home</a></li>
-          <li><a href="/meet">Events</a></li>
-          <li><a href="/vids">Videos</a></li>
-          <li><a href="/blog">Blog</a></li>
-          <li><a href="/about">About Me</a></li>
+          <li 
+          {% if selected == "home" %}
+          class="selected"
+          {% endif %}
+          ><a href="./">Home</a></li>
+          <li
+          {% if selected == "meet" %}
+          class="selected"
+          {% endif %}
+          ><a href="/meet">Events</a></li>
+          <li
+          {% if selected == "blog" %}
+          class="selected"
+          {% endif %}
+          ><a href="/blog">Blog</a></li>
+          <li
+          {% if selected == "about" %}
+          class="selected"
+          {% endif %}
+          ><a href="/about">About Me</a></li>
+          <li
+          {% if selected == "form" %}
+          class="selected"
+          {% endif %}
+          ><a href="/form">Registration</a></li>
+          <li
+          {% if selected == "vids" %}
+          class="selected"
+          {% endif %}
+          ><a href="/vids">Videos</a></li>
         </ul>
       </nav>
     </header>
