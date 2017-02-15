@@ -72,7 +72,7 @@ VALUES (DEFAULT,
         'Pontiac GTO (hardtop)');
 
 
-INSERT INTO memebers
+INSERT INTO members
 VALUES (DEFAULT,
         'Xaiver',
         'Zander',
