@@ -4,7 +4,7 @@ import psycopg2.extras
 from flask import Flask, render_template, request
 
 def connectToDB():
-    connectionString = 'dbname=roxreturns user=jack password=jack host=localhost'
+    connectionString = 'dbname=roxreturns user=webapp password=jackdale host=localhost'
     print connectionString
     try:
         return psycopg2.connect(connectionString)
