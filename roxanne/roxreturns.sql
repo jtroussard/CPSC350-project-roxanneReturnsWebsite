@@ -5,7 +5,7 @@ CREATE DATABASE roxreturns;
 
  \c roxreturns;
 
- --
+--
 -- Table structure for table City
 --
 
