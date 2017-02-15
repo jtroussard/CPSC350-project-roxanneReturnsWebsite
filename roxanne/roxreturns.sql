@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS roxreturns;
 
 
-CREATE DATABASE roxreturns
+CREATE DATABASE roxreturns;
 
  \c roxreturns;
 
@@ -18,7 +18,7 @@ CREATE TABLE Members
 	first_name varchar(50) NOT NULL, 
 	last_name varchar(50) NOT NULL, 
 	email varchar(50) NOT NULL, 
-	YEAR int DEFAULT '', 
+	YEAR int, 
 	model varchar(30) DEFAULT '', 
 	PRIMARY KEY (ID)
 );
