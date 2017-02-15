@@ -1,8 +1,19 @@
 import os
+import psycopg2
+import psycopg2.extras
 from flask import Flask, render_template, request
+
+def connectToDB():
+    connectionString = 'dbname=roxreturns user=jack password=jack host=localhost'
+    print connectionString
+    try:
+        return psycopg2.connect(connectionString)
+    except:
+        print ("Can't connect to database")
+
 app = Flask(__name__)
 
-members = [{'name': 'Jacques Troussard', 'year': '1971', 'model': 'GTO (hardtop)'}]
+members = [{'first': 'Jacques', 'last': 'Troussard', 'year': '1971', 'model': 'GTO (hardtop)'}]
 
 @app.route('/')
 def mainIndex():
@@ -26,14 +37,30 @@ def mainMeet():
 @app.route('/form', methods=['GET', 'POST'])
 def mainForm():
     if request.method == 'POST':
-        members.append({'name': request.form['name'], 'year': request.form['year'], 'model': request.form['model']})
+        members.append({'first': request.form['first'], 'last': request.form['last'], 'year': request.form['year'], 'model': request.form['model']})
     return render_template('form.html', selected='form', members=members)
     
 @app.route('/form2', methods=['POST'])
 def reply():
+    thename=request.form['first']
     
-    thename=request.form['name']
-    return render_template('form2.html', name=thename)
+    """Returns a list of members in the database"""
+    conn = connectToDB();
+    cur = conn.cursor()
+    print(request.form)
+    try:
+        cur.execute("insert into members (first_name, last_name, email, year, model) values (%s, %s, %s, %s, %s)", (request.form['first'], request.form['last'], request.form['email'], request.form['year'], request.form['model']))
+    except:
+        print("There was an error executing insert command")
+        conn.rollback()
+    conn.commit()
+    try:
+        cur.execute("select * from members")
+    except:
+        print("There was an error executing select command")
+    results = cur.fetchall()
+    
+    return render_template('form2.html', name=thename, members_list=results)
     
 @app.route('/vids')
 def mainVids():
