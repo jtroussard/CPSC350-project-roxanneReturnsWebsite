@@ -3,15 +3,11 @@
 {% block content %}
  <h1>Join the GTO Club</h1>
   <h2>List of current memebers</h2>
-   <table>
-    {% for member in members %}
-    <tr><td><b><font color=42bcf4>{{member.name}}</font></b></td><td><font color=BD430B><b>{{member.year}}  {{member.model}}</b></font></td></tr></font>
-    {% endfor %}
-   </table>
-   <form method="POST" action="/form">
+   <form method="POST" action="/form2">
     <table>
      <tr><td colspan='2'><center>Your Contact Details</center></td></tr>
-     <tr><td>Name</td><td><input type='text' name='name' /></td></tr>
+     <tr><td>First Name</td><td><input type='text' name='first' /></td></tr>
+     <tr><td>Last Name</td><td><input type='text' name='last' /></td></tr>
      <tr><td>Email</td><td><input type='text' name='email' /></td></tr>
      <tr><td colspan='2'><center>Tell us about your Car</center></td></tr>
      <tr><td>Model</td><td>
