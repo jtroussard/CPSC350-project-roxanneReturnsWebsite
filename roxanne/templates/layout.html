@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>ROXANNE_RETURNS</title>
+  <meta name="description" content="website description" />
+  <meta name="keywords" content="website keywords, website keywords" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" type="text/css" href="static/css/style.css" />
+  <!-- modernizr enables HTML5 elements and feature detects -->
+  <script type="text/javascript" src="static/js/modernizr-1.5.min.js"></script>
+</head>
+
+<body>
+  <div id="main">
+    <header>
+      <div id="logo">
+        <div id="logo_text">
+          <!-- class="logo_colour", allows you to change the colour of the text -->
+          <h1><a href="index.html">ROXANNE<span class="logo_colour">RETURNS</span></a></h1>
+          <h2>The simple blog for a GTO's restoration.</h2>
+        </div>
+      </div>
+      <nav>
+        <ul class="sf-menu" id="nav">
+          <li class="selected"><a href="./">Home</a></li>
+          <li><a href="/meet">Events</a></li>
+          <li><a href="/vids">Videos</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/about">About Me</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div id="site_content">
+      <div class="gallery">
+        <ul class="images">
+          <li class="show"><img width="950" height="300" src="static/images/1.jpg" alt="photo_one" /></li>
+          <li><img width="950" height="300" src="static/images/2.jpg" alt="seascape" /></li>
+          <li><img width="950" height="300" src="static/images/3.jpg" alt="seascape" /></li>
+          <li><img width="950" height="300" src="static/images/4.jpg" alt="seascape" /></li>
+        </ul>
+      </div>
+      <div id="sidebar_container">
+        <div class="sidebar">
+          <h3>Latest News</h3>
+          <h4>New Website Launched</h4>
+          <h5>February 2, 2017</h5>
+          <p>No Blog posts yet, but ready to demo for points<p/>
+        </div>
+        <div class="sidebar">
+          <h3>Useful Links</h3>
+          <ul>
+            <li><a href="https://www.opgi.com/gto/">OPGI:Reprodution Parts Vendor for GTO</a></li>
+            <li><a href="https://www.5speeds.com">Paul Cangialosi's High Performance Transmissions</a></li>
+            <li><a href="www.pontiacparts.net">California Pontiac Restoration: NOS parts source</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="content">
+        {%block content%}{%endblock%}
+      </div>
+    </div>
+    <footer>
+      <p>Copyright &copy; CSS3_seascape | <a href="http://www.css3templates.co.uk">design from css3templates.co.uk</a></p>
+    </footer>
+  </div>
+  <p>&nbsp;</p>
+  <!-- javascript at the bottom for fast page loading -->
+  <script type="text/javascript" src="static/js/jquery.js"></script>
+  <script type="text/javascript" src="static/js/jquery.easing-sooper.js"></script>
+  <script type="text/javascript" src="static/js/jquery.sooperfish.js"></script>
+  <script type="text/javascript" src="static/js/image_fade.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('ul.sf-menu').sooperfish();
+    });
+  </script>
+</body>
+</html>
