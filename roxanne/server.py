@@ -14,6 +14,10 @@ members = [{}]
 @app.route('/')
 def mainIndex():
 	return render_template('index.html', selected='home')
+
+@app.route('/error')
+def mainError():
+	return render_template('error.html')
 	
 @app.route('/about')
 def mainAbout():
