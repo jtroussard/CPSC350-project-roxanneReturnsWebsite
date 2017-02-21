@@ -1,19 +1,15 @@
 import os
 import psycopg2
 import psycopg2.extras
-from flask import Flask, render_template, request
 
-def connectToDB():
-    connectionString = 'dbname=roxreturns user=webapp password=jackdale host=localhost'
-    print connectionString
-    try:
-        return psycopg2.connect(connectionString)
-    except:
-        print ("Can't connect to database")
+from lib.config import *
+from lib import data_postgresql as pg
+
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-members = [{'first': 'Jacques', 'last': 'Troussard', 'year': '1971', 'model': 'GTO (hardtop)'}]
+members = [{}]
 
 @app.route('/')
 def mainIndex():
@@ -45,22 +41,20 @@ def reply():
     thename=request.form['first']
     
     """Returns a list of members in the database"""
-    conn = connectToDB();
-    cur = conn.cursor()
     print(request.form)
-    try:
-        cur.execute("insert into members (first_name, last_name, email, year, model) values (%s, %s, %s, %s, %s)", (request.form['first'], request.form['last'], request.form['email'], request.form['year'], request.form['model']))
-    except:
-        print("There was an error executing insert command")
-        conn.rollback()
-    conn.commit()
-    try:
-        cur.execute("select * from members")
-    except:
+    insert_result = pg.add_member(request.form['first'], request.form['last'], request.form['email'], request.form['year'], request.form['model'])
+    if insert_result == None:
+        print ("There was an error executing insert command")
+        return render_template('error.html')
+    else:
+        print ("Member add to database SUCCESSFUL")
+        select_results = pg.get_member_list()
+    if select_results == None:
         print("There was an error executing select command")
-    results = cur.fetchall()
-    
-    return render_template('form2.html', name=thename, members_list=results)
+        return render_template('error.html')
+    else:
+        print ("Member list return SUCCESSFUL")
+        return render_template('form2.html', name=thename, members_list=results)
     
 @app.route('/vids')
 def mainVids():
