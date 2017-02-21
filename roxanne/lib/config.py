@@ -9,7 +9,7 @@
 #Postgresql Configuration Data
 POSTGRES_DATABASE="roxreturns"
 POSTGRES_USER="webapp"
-POSTGRES_PASSWORD="jackdal"
+POSTGRES_PASSWORD="jackdale"
 POSTGRES_HOST="localhost"
 
 
