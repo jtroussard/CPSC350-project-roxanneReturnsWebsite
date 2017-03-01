@@ -58,7 +58,7 @@ def reply():
         return render_template('error.html')
     else:
         print ("Member list return SUCCESSFUL")
-        return render_template('form2.html', name=thename, members_list=results)
+        return render_template('form2.html', name=thename, members_list=select_results)
     
 @app.route('/vids')
 def mainVids():
