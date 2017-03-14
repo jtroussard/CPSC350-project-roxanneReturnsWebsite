@@ -40,13 +40,15 @@ def execute_query(query, conn, select=True, args=None):
 	cur.close()
 	return results
 
-def add_member(rqst_fname, rqst_lname, rqst_email, rqst_year, rqst_model):
+def add_member(rqst_fname, rqst_lname, rqst_email, rqst_year, rqst_model, rqst_pass):
 	conn = ConnectToPostgres();
 	if conn == None:
 		return None
 
-	query_string = "INSERT INTO members (first_name, last_name, email, year, model) VALUES (%s, %s, %s, %s, %s)"
-	execute_query(query_string, conn, select=False, args=(rqst_fname, rqst_lname, rqst_email, rqst_year, rqst_model))
+	query_string = "INSERT INTO members (first_name, last_name, email, year, model, password) VALUES (%s, %s, %s, %s, %s, crypt(%s, gen_salt(%s)))"
+	#crypt_string = "crypt('" + rqst_pass + "', gen_salt('bf'))"
+	print (query_string)
+	execute_query(query_string, conn, select=False, args=(rqst_fname, rqst_lname, rqst_email, rqst_year, rqst_model, rqst_pass, 'bf'))
 	conn.commit()
 	conn.close()
 	return 0
