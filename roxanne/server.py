@@ -12,26 +12,31 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24).encode('hex')
 
 members = [{}]
+logged = False;
 
 
 @app.route('/', methods=['GET', 'POST'])
 def mainIndex():
     if request.method == 'POST':
-        session['username'] = request.form['fn']
-        session['userlast'] = request.form['ln']
+        login_result = pg.login_member(request.form['fn'], request.form['pass']);
+        print ("************ printing login results =======> ")
+        print (login_result)
 
-        print(session)
-        print(session['username'])
-        print(session['userlast'])
-
+        if (len(login_result)!=0):
+            session['username'] = login_result[0][1] + login_result[0][2]
+            session['userlast'] = login_result[0][2]
+        else:
+            user = ['', '']
+            return render_template('login.html', selected='', error=True, user=user)
+            
     if 'username' in session:
         user = [session['username'], session['userlast']]
-        print("username in session, user var created")
-        print(user)
+        logged = True;
     else:
         user = ['', '']
+        logged = False;
 
-    return render_template('index.html', selected='home', user=user)
+    return render_template('index.html', selected='home', user=user, logged=logged)
 
 
 @app.route('/error')
@@ -94,9 +99,10 @@ def reply():
         user = ['', '']
 
     """Returns a list of members in the database"""
+    print("printing request.form")
     print(request.form)
     insert_result = pg.add_member(request.form['first'], request.form[
-                                  'last'], request.form['email'], request.form['year'], request.form['model'], request.form['pass'])
+                                  'last'], request.form['email'], request.form['zip'], request.form['year'], request.form['model'], request.form['pass'])
     if insert_result == None:
         print("There was an error executing insert command")
         return render_template('error.html')
@@ -124,6 +130,18 @@ def mainVids():
               {'title': 'Paul Cangialosi explains Gear Ratios', 'link': 'RyOWKW21I0c'}]
 
     return render_template('vids.html', selected='vids', vids=videos, user=user)
+    
+@app.route('/login')
+def mainLogin():
+    error = False
+    if 'username' in session:
+        user = [session['username'], session['userlast']]
+    else:
+        user = ['', '']
+
+    return render_template('login.html', selected='form', user=user)
+    
+
 # start the server
 if __name__ == '__main__':
     app.run('0.0.0.0', port=8080, debug=True)

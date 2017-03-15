@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block content %}
+ <h1>Login or <font color="orange"><a href="/form">Register</a></font>!</h1>
+  <p></p>
+  {% if error %}
+  <h2>Sorry either your login or password is entered incorrectly, else you are not <a href="/form">Registered.</a></h2>
+  {% else %}
+  <h2>Enter in your login information.</h2>
+  {% endif %}
+  <p></p>
+  <div>
+    <h3>Member Login</h3>
+    <form method="POST" action="/">
+    <p>FIRST NAME<br>
+    <input type="text" name="fn"/></p>
+    <p>PASSWORD<br>
+    <input type="text" name="pass"/></p>
+    <input type="submit" />
+    </form>
+  </div>
+{% endblock %}
+
