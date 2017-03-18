@@ -142,6 +142,31 @@ def mainLogin():
 
     return render_template('login.html', selected='form', user=user)
     
+@app.route('/dashboard')
+def mainDash():
+    selection = request.form["dash_option"]
+    print (selection)
+    if selection == "Search":
+        return render_template('market.html', user=user)
+    else:
+        return render_template('market_post.html', user=user)
+    return render_template('dashboard.html,' user=user)
+
+@app.route('/market' methods='GET')
+def mainMarket():
+    #configuration variable convention
+    # 1) borders - int
+    # 2) header_01 - String
+    # 3) header_02 - String
+    config_values = {'borders':0, 'header_01':"", 'header_02':""};
+
+    if (methods='GET') {
+    config_values = {'borders':3, 'header_01':"Description", 'header_02':"Price"};
+    
+    }
+    
+    return render_template('/market', user=user, config=config_values,  )
+
 
 # start the server
 if __name__ == '__main__':

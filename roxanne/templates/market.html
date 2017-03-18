@@ -2,7 +2,7 @@
 {% block content %}
     <h1>Online Market &amp; Swap Meet<font color="orange"></h1>
     <h2>Search for cars or parts you are looking for here!</h2>
-    <form>
+    <form method="GET" action="/market">
         Search: <input type="text" name="search" value="" maxlength="140" size="100" /><br />
     </form>
     <p></p>
@@ -10,10 +10,11 @@
     borders
     heading values
     -->
-    <table border={{config.borders}} width="900">
+    <table border={{config['boarders']}} width="900">
         <tr>
-            <th width="70%">{{config.header_01}}</th> <!--search result string-->
-            <th width="30%">{{config.header_02}}</th> <!--corresponding price-->
+            <!--Search result headers are being contained in variables as to remain invisable before search inquiry has been made.-->
+            <th width="70%">{{config['header_01']}}</th> <!--search result string-->
+            <th width="30%">{{config['header_02']}}</th> <!--corresponding price-->
             <!--time permitting make a picture and contact heading-->
         </tr>
         {% for post in results %}
@@ -22,10 +23,9 @@
                 <td>{{search_results.price}}</td>
             </tr>
         {% endfor %}
-        </table>
-
-        <p>-Jacques Troussard</p>
-        <p></p>
-        <p></p>
-        <p>A test <a href="/error">link</a> for the error page.</p>
-    {% endblock %}
+    </table>
+    <p>-Jacques Troussard</p>
+    <p></p>
+    <p></p>
+    <p>A test <a href="/error">link</a> for the error page.</p>
+{% endblock %}
