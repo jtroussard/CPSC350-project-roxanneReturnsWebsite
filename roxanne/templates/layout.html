@@ -64,7 +64,13 @@
           {% endif %}
           ><a href="/vids">Videos</a></li>
         </ul>
-        <div align="middle"><h4>You are logged in as: {{user[0]}} {{user[1]}}</h4></div>
+        <div align="middle">
+          {% if logged %}
+          <h4>You are logged in as: {{user[0]}} {{user[1]}}</h4>
+          {% else %}
+          <h4><a href="\login">Login</a></h4>
+          {% endif %}
+        </div>
       </nav>
     </header>
     <div id="site_content">

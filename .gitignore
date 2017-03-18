@@ -1,1 +1,11 @@
+#Ignore all pyc files<br>
 *.pyc
+#Ignore all .c9 specific files<br>
+.~c9*
+
+
+
+#sql files for 350 lighting round
+tomatoes*
+umw.sql
+world*
