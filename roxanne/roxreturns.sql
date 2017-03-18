@@ -1,12 +1,5 @@
-DROP DATABASE IF EXISTS roxreturns;
-
-
-CREATE DATABASE roxreturns;
-
- \c roxreturns;
-
 --
--- Table structure for table City
+-- Table structure for table Market
 --
 
 DROP TABLE IF EXISTS Market;
@@ -21,9 +14,8 @@ item_price numeric(8,2)
 );
 
 --
--- Dumping data for table members
+-- Dumping data for table Market
 --
--- ORDER BY:
 
 INSERT INTO Market (item_make, item_model, item_year, item_location, item_price)
 VALUES 
@@ -37,22 +29,17 @@ VALUES
 ('Pontiac','TransAm WS6',2001,22401,12500);
 
 
-
-
-
-
-
-
+--
+-- Table structure for table Members
+--
 
 DROP TABLE IF EXISTS Members;
-
 
 CREATE TABLE Members (member_id serial PRIMARY KEY, first_name varchar(50) NOT NULL, last_name varchar(50) NOT NULL, email varchar(50) NOT NULL, zipcode int NOT NULL, YEAR int, model varchar(30) DEFAULT '', password text DEFAULT 'pontiac');
 
 --
--- Dumping data for table members
+-- Dumping data for table Members
 --
--- ORDER BY:
 
 INSERT INTO Members (first_name, last_name, email, zipcode, YEAR, model)
 VALUES ( 'Jacques',
