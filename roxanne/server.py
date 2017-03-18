@@ -21,8 +21,9 @@ def mainIndex():
         login_result = pg.login_member(request.form['fn'], request.form['pass']);
         print ("************ printing login results =======> ")
         print (login_result)
+        print (type(login_result))
 
-        if (len(login_result)!=0):
+        if (login_result!=None):
             session['username'] = login_result[0][1] + login_result[0][2]
             session['userlast'] = login_result[0][2]
         else:
