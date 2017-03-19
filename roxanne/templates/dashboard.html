@@ -3,20 +3,17 @@
     <h1>Welcome<font color="orange">{{user[0]}} {{user[1]}}</font></h1>
     <h2>This is your RoxanneReturns Dashboard</h2>
     <form method="POST" action="/dashboard">
-    <p></p>
-    What would you like to do?
-    <p></p>
-    <select name="dash_option">
+    <h3>What would you like to do?</h3>
+    <p>
+        <select name="dash_option">
         <option disabled selected value> -- select an option --</option>
         <optgroup label="Market"></optgroup>
             <option>Search</option>
             <option>Post</option>
-    </select>
+        </select>
+    </p>
+    <p>
+        <input type="submit" value="         Go         "/>
+    </p>
     </form>
-    <p></p>
-
-        <p>-Jacques Troussard</p>
-        <p></p>
-        <p></p>
-        <p>A test <a href="/error">link</a> for the error page.</p>
     {% endblock %}
