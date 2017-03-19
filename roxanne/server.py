@@ -150,14 +150,17 @@ def mainLogin():
 
     return render_template('login.html', selected='form', user=user)
     
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['POST'])
 def mainDash():
     selection = request.form["dash_option"]
-    print (selection)
-    if selection == "Search":
+    print ("==========\nStart - mainDash:\n\tvar selection = {}".format(selection))
+    if selection == "search":
+        print ("==========\End - mainDash:\n\treturn:\n\treturn render_template('market.html', user=user)\n\tvar user = {}".format(user))
         return render_template('market.html', user=user)
     else:
+        print ("==========\End - mainDash:\n\treturn:\n\treturn render_template('market_post.html', user=user)\n\tvar user = {}".format(user))
         return render_template('market_post.html', user=user)
+    print ("==========\End - mainDash:\n\treturn:\n\treturn render_template('dashboard.html', user=user)\n\tvar user = {}".format(user))
     return render_template('dashboard.html', user=user)
 
 @app.route('/market', methods=['GET'])
