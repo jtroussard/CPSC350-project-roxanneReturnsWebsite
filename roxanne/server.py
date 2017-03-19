@@ -13,30 +13,38 @@ app.secret_key = os.urandom(24).encode('hex')
 
 members = [{}]
 logged = False;
+user = ['','']
 
 
 @app.route('/', methods=['GET', 'POST'])
 def mainIndex():
+    # user attempts login
+    # send/rec data to db
     if request.method == 'POST':
         login_result = pg.login_member(request.form['fn'], request.form['pass']);
-        print ("************ printing login results =======> ")
-        print (login_result)
-        print (type(login_result))
-
-        if (login_result!=None):
+        
+        # if successful set session variables, modify user variable
+        # finally render bdashboard
+        if (login_result):
             session['username'] = login_result[0][1] + login_result[0][2]
             session['userlast'] = login_result[0][2]
+            user = [session['username'], session['userlast']]
+            logged = True;
+            return render_template('dashboard.html', selected='', error=False, user=user)
+        # if failure set user and logged to defaults, flip error bool 
+        # finally render login and send error bool to notifiy user of failure
         else:
             user = ['', '']
+            logged = False;
             return render_template('login.html', selected='', error=True, user=user)
-            
+    
+    # default render        
     if 'username' in session:
         user = [session['username'], session['userlast']]
-        logged = True;
+        logged = True
     else:
         user = ['', '']
-        logged = False;
-
+        logged = False
     return render_template('index.html', selected='home', user=user, logged=logged)
 
 
@@ -150,21 +158,11 @@ def mainDash():
         return render_template('market.html', user=user)
     else:
         return render_template('market_post.html', user=user)
-    return render_template('dashboard.html,' user=user)
+    return render_template('dashboard.html', user=user)
 
-@app.route('/market' methods='GET')
+@app.route('/market', methods=['GET'])
 def mainMarket():
-    #configuration variable convention
-    # 1) borders - int
-    # 2) header_01 - String
-    # 3) header_02 - String
-    config_values = {'borders':0, 'header_01':"", 'header_02':""};
-
-    if (methods='GET') {
-    config_values = {'borders':3, 'header_01':"Description", 'header_02':"Price"};
-    
-    }
-    
+    config_values = ""
     return render_template('/market', user=user, config=config_values,  )
 
 
