@@ -18,19 +18,22 @@ user = ['','']
 
 @app.route('/', methods=['GET', 'POST'])
 def mainIndex():
+    print ("==========\nStart - mainIndex:")
     # user attempts login
     # send/rec data to db
     if request.method == 'POST':
         login_result = pg.login_member(request.form['fn'], request.form['pass']);
-        
+        print ("\n\tmainDash-> if method == POST\n\t\tvar login_result = {}".format(login_result))
         # if successful set session variables, modify user variable
         # finally render bdashboard
         if (login_result):
-            session['username'] = login_result[0][1] + login_result[0][2]
+            session['username'] = login_result[0][1]
             session['userlast'] = login_result[0][2]
             user = [session['username'], session['userlast']]
             logged = True;
-            return render_template('dashboard.html', selected='', error=False, user=user)
+            print ("\n\t\tmainDash-> if login_result not empty\n\t\t\tvar login_result = {}".format(login_result))
+            print ("\n\t\tmainDash-> return\n\t\t\tReturn render_template('dashboard.html', selected='', error=False, user=user, logged=logged)\n\t\t\tvar user = {}\n\t\t\tvar logged = {}\nEND mainIndex".format(user, logged))
+            return render_template('dashboard.html', selected='', error=False, user=user, logged=logged)
         # if failure set user and logged to defaults, flip error bool 
         # finally render login and send error bool to notifiy user of failure
         else:
@@ -152,16 +155,34 @@ def mainLogin():
     
 @app.route('/dashboard', methods=['POST'])
 def mainDash():
-    selection = request.form["dash_option"]
-    print ("==========\nStart - mainDash:\n\tvar selection = {}".format(selection))
-    if selection == "search":
-        print ("==========\End - mainDash:\n\treturn:\n\treturn render_template('market.html', user=user)\n\tvar user = {}".format(user))
-        return render_template('market.html', user=user)
+    print ("==========\nStart - mainDash:")
+    if 'username' in session:
+        user = [session['username'], session['userlast']]
+        logged = True
     else:
-        print ("==========\End - mainDash:\n\treturn:\n\treturn render_template('market_post.html', user=user)\n\tvar user = {}".format(user))
-        return render_template('market_post.html', user=user)
-    print ("==========\End - mainDash:\n\treturn:\n\treturn render_template('dashboard.html', user=user)\n\tvar user = {}".format(user))
-    return render_template('dashboard.html', user=user)
+        user = ['', '']
+        logged = False
+        
+    # checking logged status
+    if logged:
+        selection = request.form["dash_option"]
+        print ("\n\tmainDash-> if logged True\n\tvar logged = {}".format(logged))
+        if selection == "search":
+            print ("\n\t\tmainDash-> if selection == search\n\t\tvar selection = {}".format(selection))
+            print ("\n\t\tmainDash-> return render_template('market.html', user=user)\n\t\tvar user = {}\nEND mainDash".format(user))
+            return render_template('market.html', user=user, logged=logged)
+        else:
+            print ("\n\t\tmainDash-> else selection == search\n\t\tvar selection = {}".format(selection))
+            print ("\n\t\tmainDash-> return render_template('market.html', user=user)\n\t\tvar user = {}\nEND mainDash".format(user))
+            return render_template('market_post.html', user=user, logged=logged)
+    else:
+        print ("\n\tmainDash-> else logged True\n\tvar logged = {}".format(logged))
+        print ("\n\tmainDash-> return render_template('login.html', user=user)\n\t\tvar user = {}\nEND mainDash".format(user))
+        return render_template('login.html', user=user, logged=logged)
+    
+    # default render
+    print ("\nmainDash-> (default render)\nEND mainDash")
+    return render_template('dashboard.html', user=user, logged=logged)
 
 @app.route('/market', methods=['GET'])
 def mainMarket():
