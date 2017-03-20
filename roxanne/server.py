@@ -190,10 +190,12 @@ def mainMarket():
     config_values = {}
     if request.method == 'POST':
         search_term = request.form['search']
+        results = pg.search_market(search_term)
         config_values['header_01'] = "Description";
         config_values['header_02'] = "Price";
+        config_values['header_03'] = "Location";
         print ("\n\tmainDash-> if POST\n\tvar search_term = {}\n\tvar config_v['header_01'] = {}\n\tvar config_v['header_02'] = {}".format(search_term,config_values['header_01'],config_values['header_02']))
-        return render_template('/market.html', user=user, config=config_values, test_return=search_term)
+        return render_template('/market.html', user=user, config=config_values, test_return=search_term, results=results)
         
         
         

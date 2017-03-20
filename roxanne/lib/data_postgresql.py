@@ -75,3 +75,13 @@ def login_member(rqst_fname, rqst_pass):
 		print ("error, password don't match")
 	conn.close()
 	return results
+	
+def search_market(rqst_term):
+	conn = ConnectToPostgres();
+	if conn == None:
+		return None
+
+	query_string = "SELECT * FROM market WHERE LOWER(item_make) LIKE LOWER('Pontiac')"
+	results = execute_query(query_string, conn)
+	conn.close()
+	return results

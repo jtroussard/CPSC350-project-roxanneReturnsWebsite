@@ -22,17 +22,17 @@
         <tr>
             
             <!--Search result headers are being contained in variables as to remain invisable before search inquiry has been made.-->
-            <th width="80%">{{config['header_01']}}</th> <!--search result string-->
-            <th width="20%">{{config['header_02']}}</th> <!--corresponding price-->
+            <th width="70%">{{config['header_01']}}</th> <!--search result string-->
+            <th width="15%">{{config['header_02']}}</th> <!--corresponding price-->
+            <th width="15%">{{config['header_03']}}</th> <!--corresponding price-->
             <!--time permitting make a picture and contact heading-->
         </tr>
-        <tr>
-                <td><font color="orange">{{test_return}}</font></td><!--{#hold while testing  {{search_results.description}}#}-->
-            </tr>
+
         {% for post in results %}
             <tr>
-                <td><font color="orange">{{test_return}}</font><!--hold while testing  {{search_results.description}}--></td>
-                <td>{{search_results.price}}</td>
+                <td>{{post[3]}} {{post[1]}} {{post[2]}}</td>
+                <td>{{post[5]}}</td>
+                <td>{{post[4]}}</td>
             </tr>
         {% endfor %}
     </table>

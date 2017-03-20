@@ -41,6 +41,15 @@ CREATE TABLE Members (member_id serial PRIMARY KEY, first_name varchar(50) NOT N
 -- Dumping data for table Members
 --
 
+INSERT INTO Members (first_name, last_name, email, zipcode, YEAR, model, password)
+VALUES ( 'pontiac',
+         'app tester',
+         'fake_email@fake_email.gl',
+         22401,
+         1971,
+         'Pontiac GTO (hardtop)'),
+         crypt('password', gen_salt('bf'));
+
 INSERT INTO Members (first_name, last_name, email, zipcode, YEAR, model)
 VALUES ( 'Jacques',
          'Troussard',
