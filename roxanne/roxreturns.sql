@@ -48,7 +48,7 @@ VALUES ( 'pontiac',
          22401,
          1971,
          'Pontiac GTO (hardtop)',
-         crypt('password', gen_salt('bf')));
+         crypt('pontiac', gen_salt('bf')));
 
 INSERT INTO Members (first_name, last_name, email, zipcode, YEAR, model)
 VALUES ( 'Jacques',

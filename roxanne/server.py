@@ -54,31 +54,49 @@ def mainIndex():
 
 @app.route('/error')
 def mainError():
-    return render_template('error.html')
-
+    print ("==========\nStart - mainError:")
+    if 'username' in session:
+        user = [session['username'], session['userlast']]
+        logged = True
+    else:
+        user = ['', '']
+        logged = False
+    return render_template('error.html', user=user, logged=logged)
+    
 
 @app.route('/about')
 def mainAbout():
     if 'username' in session:
         user = [session['username'], session['userlast']]
+        logged = True
     else:
         user = ['', '']
+        logged = False
 
-    return render_template('about.html', selected='about', user=user)
+    return render_template('about.html', selected='about', user=user, logged=logged)
 
 
 @app.route('/blog')
 def mainBlog():
     if 'username' in session:
         user = [session['username'], session['userlast']]
+        logged = True
     else:
         user = ['', '']
+        logged = False
 
-    return render_template('blog.html', selected='blog', user=user)
+    return render_template('blog.html', selected='blog', user=user, logged=logged)
 
 
 @app.route('/meet')
 def mainMeet():
+    print ("==========\nStart - mainMeet:")
+    if 'username' in session:
+        user = [session['username'], session['userlast']]
+        logged = True
+    else:
+        user = ['', '']
+        logged = False
     showMonth = "April"
     isPresent = False
     shows = {'date': 'April 6-9', 'location': 'The Charlotte Motor Speedway', 'address': '5555 Concord Pkwy S, Concord, NC 28027', 'name': 'Charlotte AutoFair',
@@ -87,7 +105,7 @@ def mainMeet():
         user = [session['username'], session['userlast']]
     else:
         user = ['', '']
-    return render_template('meet.html', selected='meet', showMonth=showMonth, show=shows, isPres=isPresent, user=user)
+    return render_template('meet.html', selected='meet', showMonth=showMonth, show=shows, isPres=isPresent, user=user, logged=logged)
 
 
 @app.route('/form', methods=['GET', 'POST'])
@@ -97,62 +115,72 @@ def mainForm():
                        'last'], 'year': request.form['year'], 'model': request.form['model']})
     if 'username' in session:
         user = [session['username'], session['userlast']]
+        logged = True
+        return render_template('form2.html', selected='form', members=members, user=user, logged=logged)
     else:
         user = ['', '']
+        logged = False
+        return render_template('form.html', selected='form', members=members, user=user, logged=logged)
 
-    return render_template('form.html', selected='form', members=members, user=user)
 
-
-@app.route('/form2', methods=['POST'])
+@app.route('/form2', methods=['POST', 'GET'])
 def reply():
     thename = request.form['first']
     if 'username' in session:
         user = [session['username'], session['userlast']]
+        logged = True
     else:
         user = ['', '']
+        logged = False
 
-    """Returns a list of members in the database"""
     print("printing request.form")
     print(request.form)
     insert_result = pg.add_member(request.form['first'], request.form[
                                   'last'], request.form['email'], request.form['zip'], request.form['year'], request.form['model'], request.form['pass'])
     if insert_result == None:
         print("There was an error executing insert command")
-        return render_template('error.html')
+        return render_template('error.html', user=user, logged=logged)
     else:
         print("Member add to database SUCCESSFUL")
         select_results = pg.get_member_list()
-    if select_results == None:
-        print("There was an error executing select command")
-        return render_template('error.html')
-    else:
+    if select_results != None:
         print("Member list return SUCCESSFUL")
-        return render_template('form2.html', name=thename, members_list=select_results, user=user)
-
+        return render_template('form2.html', name=thename, members_list=select_results, user=user, logged=logged)
+    else:
+        print("There was an error executing select command")
+        return render_template('error.html', user=user, logged=logged)
+    if logged:
+        select_results = pg.get_member_list()
+        print("Member list return SUCCESSFUL")
+        return render_template('form2.html', name=thename, members_list=select_results, user=user, logged=logged)
 
 @app.route('/vids')
 def mainVids():
     if 'username' in session:
         user = [session['username'], session['userlast']]
+        logged = True
     else:
         user = ['', '']
+        logged = False
     videos = [{'title': 'Famous GTOs: Walking Dead', 'link': 'hYHYW-vcIMw?start=107&end=155'},
               {'title': 'Quarter Mile Action', 'link': 'kEVJV8BFnpw?start=21'},
               {'title': 'Nice Example of Restored GTO',
                'link': 'HT7bKCTxUhM?start=9'},
               {'title': 'Paul Cangialosi explains Gear Ratios', 'link': 'RyOWKW21I0c'}]
 
-    return render_template('vids.html', selected='vids', vids=videos, user=user)
+    return render_template('vids.html', selected='vids', vids=videos, user=user, logged=logged)
     
 @app.route('/login')
 def mainLogin():
     error = False
     if 'username' in session:
         user = [session['username'], session['userlast']]
+        logged = True
     else:
         user = ['', '']
+        logged = False
 
-    return render_template('login.html', selected='form', user=user)
+    return render_template('login.html', selected='form', user=user, logged=logged)
     
 @app.route('/dashboard', methods=['POST'])
 def mainDash():
@@ -188,6 +216,12 @@ def mainDash():
 @app.route('/market', methods=['GET', 'POST'])
 def mainMarket():
     print ("==========\nStart - mainMarket:")
+    if 'username' in session:
+        user = [session['username'], session['userlast']]
+        logged = True
+    else:
+        user = ['', '']
+        logged = False
     config_values = {}
     if request.method == 'POST':
         search_term = request.form['search']
@@ -197,7 +231,7 @@ def mainMarket():
         config_values['header_02'] = "Price";
         config_values['header_03'] = "Location";
         print ("\n\tmainDash-> if POST\n\tvar search_term = {}\n\tvar config_v['header_01'] = {}\n\tvar config_v['header_02'] = {}".format(search_term,config_values['header_01'],config_values['header_02']))
-        return render_template('/market.html', user=user, config=config_values, test_return=search_term, results=results)
+        return render_template('/market.html', user=user, logged=logged, config=config_values, test_return=search_term, results=results)
         
         
         
