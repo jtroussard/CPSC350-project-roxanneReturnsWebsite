@@ -1,9 +1,17 @@
 {% extends "layout.html" %}
 {% block content %}
     <h1>Online Market &amp; Swap Meet<font color="orange"></h1>
-    <h2>Search for cars or parts you are looking for here!</h2>
-    <form method="GET" action="/market">
-        Search: <input type="text" name="search" value="" maxlength="140" size="80" /><br />
+    <h2>Search for cars here!</h2>
+    <form method="POST" action="/market">
+        <p>
+            Search:
+            <input type="text" name="search" value="" maxlength="140" size="80" /><br />
+        </p>
+        <p>
+            <center>
+            <input type="submit" value="     Search     " />
+            </center>
+        </p>
     </form>
     <p></p>
     <!-- config is a list holder normal table values for such attbrs:
@@ -12,14 +20,18 @@
     -->
     <table border=0 width="680" bgcolor="#222">
         <tr>
+            
             <!--Search result headers are being contained in variables as to remain invisable before search inquiry has been made.-->
             <th width="80%">{{config['header_01']}}</th> <!--search result string-->
             <th width="20%">{{config['header_02']}}</th> <!--corresponding price-->
             <!--time permitting make a picture and contact heading-->
         </tr>
+        <tr>
+                <td><font color="orange">{{test_return}}</font></td><!--{#hold while testing  {{search_results.description}}#}-->
+            </tr>
         {% for post in results %}
             <tr>
-                <td>{{search_results.description}}</td>
+                <td><font color="orange">{{test_return}}</font><!--hold while testing  {{search_results.description}}--></td>
                 <td>{{search_results.price}}</td>
             </tr>
         {% endfor %}

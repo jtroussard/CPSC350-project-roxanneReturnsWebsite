@@ -184,10 +184,23 @@ def mainDash():
     print ("\nmainDash-> (default render)\nEND mainDash")
     return render_template('dashboard.html', user=user, logged=logged)
 
-@app.route('/market', methods=['GET'])
+@app.route('/market', methods=['GET', 'POST'])
 def mainMarket():
-    config_values = ""
-    return render_template('/market', user=user, config=config_values,  )
+    print ("==========\nStart - mainMarket:")
+    config_values = {}
+    if request.method == 'POST':
+        search_term = request.form['search']
+        config_values['header_01'] = "Description";
+        config_values['header_02'] = "Price";
+        print ("\n\tmainDash-> if POST\n\tvar search_term = {}\n\tvar config_v['header_01'] = {}\n\tvar config_v['header_02'] = {}".format(search_term,config_values['header_01'],config_values['header_02']))
+        return render_template('/market.html', user=user, config=config_values, test_return=search_term)
+        
+        
+        
+        
+        
+    
+    return render_template('/market.html', user=user, config=config_values, logged=logged)
 
 
 # start the server
