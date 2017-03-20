@@ -29,6 +29,7 @@ def execute_query(query, conn, select=True, args=None):
 	results = None
 	try:
 		quer = cur.mogrify(query, args)
+		print(quer)
 		cur.execute(quer)
 		if select:
 			results = cur.fetchall()
@@ -81,7 +82,7 @@ def search_market(rqst_term):
 	if conn == None:
 		return None
 
-	query_string = "SELECT * FROM market WHERE LOWER(item_make) LIKE LOWER('Pontiac')"
-	results = execute_query(query_string, conn)
+	query_string = "SELECT * FROM market WHERE LOWER(item_model) LIKE LOWER( %s )"
+	results = execute_query(query_string, conn, True, args=(rqst_term, ))
 	conn.close()
 	return results
