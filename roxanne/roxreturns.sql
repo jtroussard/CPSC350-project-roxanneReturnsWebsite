@@ -47,7 +47,7 @@ VALUES ( 'pontiac',
          'fake_email@fake_email.gl',
          22401,
          1971,
-         'Pontiac GTO (hardtop)'),
+         'Pontiac GTO (hardtop)',
          crypt('password', gen_salt('bf'));
 
 INSERT INTO Members (first_name, last_name, email, zipcode, YEAR, model)
