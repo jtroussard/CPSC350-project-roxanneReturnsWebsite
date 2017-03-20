@@ -77,12 +77,19 @@ def login_member(rqst_fname, rqst_pass):
 	conn.close()
 	return results
 	
-def search_market(rqst_term):
+def search_market(rqst_term, loc_search, location):
 	conn = ConnectToPostgres();
 	if conn == None:
 		return None
+		
+	rqst_term_MOD = "%{}%".format(rqst_term)
+	print ("This is the modified search term ==========>{}".format(rqst_term_MOD))
 
-	query_string = "SELECT * FROM market WHERE LOWER(item_model) LIKE LOWER( %s )"
-	results = execute_query(query_string, conn, True, args=(rqst_term, ))
+	if loc_search=="ON":
+		query_string = "SELECT * FROM market WHERE (LOWER(item_model) LIKE LOWER( %s ) OR LOWER(item_make) LIKE LOWER( %s )) AND (item_location = %s)"
+		results = execute_query(query_string, conn, True, args=(rqst_term_MOD, rqst_term_MOD, location))
+	else:
+		query_string = "SELECT * FROM market WHERE LOWER(item_model) LIKE LOWER( %s ) OR LOWER(item_make) LIKE LOWER( %s )"
+		results = execute_query(query_string, conn, True, args=(rqst_term_MOD, rqst_term_MOD))
 	conn.close()
 	return results

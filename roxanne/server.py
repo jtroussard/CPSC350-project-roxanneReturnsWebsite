@@ -29,6 +29,7 @@ def mainIndex():
         if (login_result):
             session['username'] = login_result[0][1]
             session['userlast'] = login_result[0][2]
+            session['userlocation'] = login_result[0][4]
             user = [session['username'], session['userlast']]
             logged = True;
             print ("\n\t\tmainDash-> if login_result not empty\n\t\t\tvar login_result = {}".format(login_result))
@@ -190,7 +191,8 @@ def mainMarket():
     config_values = {}
     if request.method == 'POST':
         search_term = request.form['search']
-        results = pg.search_market(search_term)
+        loc_search = request.form['location_switch']
+        results = pg.search_market(search_term, loc_search, session['userlocation'])
         config_values['header_01'] = "Description";
         config_values['header_02'] = "Price";
         config_values['header_03'] = "Location";
