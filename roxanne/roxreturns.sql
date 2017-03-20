@@ -118,7 +118,6 @@ VALUES (DEFAULT,
         1967,
         'Pontiac GTO (hardtop)');
         
-GRANT SELECT ON market, market_item_id_seq TO webapp;
-GRANT SELECT ON members, members_member_id_seq TO webapp;
+GRANT SELECT ON members, market TO webapp;
 GRANT INSERT ON members TO webapp;
-
+GRANT ALL ON market_item_id_seq, members_member_id_seq TO webapp;
