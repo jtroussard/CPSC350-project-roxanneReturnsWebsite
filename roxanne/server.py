@@ -23,7 +23,6 @@ def mainIndex():
     # send/rec data to db
     if request.method == 'POST':
         login_result = pg.login_member(request.form['fn'], request.form['pass']);
-        print ("\n\tmainDash-> if method == POST\n\t\tvar login_result = {}".format(login_result))
         # if successful set session variables, modify user variable
         # finally render bdashboard
         if (login_result):
@@ -32,8 +31,6 @@ def mainIndex():
             session['userlocation'] = login_result[0][4]
             user = [session['username'], session['userlast']]
             logged = True;
-            print ("\n\t\tmainDash-> if login_result not empty\n\t\t\tvar login_result = {}".format(login_result))
-            print ("\n\t\tmainDash-> return\n\t\t\tReturn render_template('dashboard.html', selected='', error=False, user=user, logged=logged)\n\t\t\tvar user = {}\n\t\t\tvar logged = {}\nEND mainIndex".format(user, logged))
             return render_template('dashboard.html', selected='', error=False, user=user, logged=logged)
         # if failure set user and logged to defaults, flip error bool 
         # finally render login and send error bool to notifiy user of failure
@@ -132,8 +129,6 @@ def reply():
     else:
         user = ['', '']
         logged = False
-
-    print("printing request.form")
     print(request.form)
     insert_result = pg.add_member(request.form['first'], request.form[
                                   'last'], request.form['email'], request.form['zip'], request.form['year'], request.form['model'], request.form['pass'])
