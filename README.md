@@ -1,4 +1,4 @@
-# CPSC350_Project_RoxanneReturnsWebappProject Name
+# CPSC350_Project_RoxanneReturnsWebapp
 
 Description: This project the sum of several rudiment assignments. The projects rudiments cover, setting up a basic Flask template website, wiring it up to a PostgreSQL database, running the project from a developement machine and than a production machine (Google Cloud), adding angularJS, implementing SocketIO.
 
